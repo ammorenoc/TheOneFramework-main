@@ -1,0 +1,167 @@
+﻿title: Start
+---
+<<declare $appleQuest = "not started">>
+<<declare $apples = 0>>
+<<set_enabled "AppleCollectible" false>>
+<<set_enabled "AppleCollectible (1)" false>>
+<<set_enabled "AppleCollectible (2)" false>>
+
+<<declare $mayorQuest = "not started">>
+<<declare $mayorQuestTalks = 0>>
+
+(Uuughh my head... where am i? Last i remember Yuki-chan and I were about to crash into a rock in the middle of the river...)
+(And now I am... What is this place? Is this heaven? Did i die? But the boat is right there?)
+(Wait... Yuki!?! where is Yuki-chan?) YUKI-CHAN!! WHERE ARE YOU, YUKI!?!
+I need to hurry and look for her! She might still be around!
+===
+
+title: FoundBoat
+---
+<<if $mayorQuest == "not started">>
+    Makoto: Yes, this is Yuki-chan's boat, her name is carved under the seat... but why is this in the middle of the mountains?
+    Makoto: Never mind, I need to keep looking for Yuki!
+<<else>>
+    Makoto: Lets see... the mayor said Yuki-chan left a clue here... ah, i see something carved almost out of sight by the rear of the boat
+    Makoto: "Our names together, one in front of the other, they look at each other with sixfold envy. Little do they know that they are One when the same, and Nothing when different." Makoto, find me at my hut at the base of the smokey ridge. -Yukina
+<<endif>>
+===
+
+title: DeerQuest
+---
+<<if $appleQuest == "not started">>
+    Deer: Oh, Bless the Goddess! Please, noble warrior, i require your assistance!
+    Makoto: AAAHHHHH! A monster!
+    Deer: What? How rude! I am cognizant that my visage may not be the most beautiful, but calling me a monster is beyond the pale! Apologize to me hence, rude warrior sir!
+    Makoto: You are a talking deer! Of course i would think you are a monster. What are you? Where is this? 
+    Deer: You are the second person who has reacted to me hence in the span of a day - oh Dura above, is there a certain stupid flu going around? Is it contagious!?!
+    Makoto: Wait, wait... i'm sorry, i did not mean to offend you.. im just.. not from these parts, and you suprised me is all. I apologize. But i need your help? I am looking for someone, and you said I am the second person who was suprised about you talking?
+    Deer: Indeed. I graced her with my presence not one day nonce. 
+    Makoto: Did she happen to mention her name?
+    Deer: I seem to recall her name was Yukina.
+    Makoto: OMG! OMG! Yukina walked through here yesterday!?!
+    Deer: I just told you that... are you sure that... ehm... whatever you have.. is not contagious? I would absolutely detest being as dim-witted as you.
+    Makoto: Where did she go? I need to find her! Do you have any information that could be useful in tracking her down?
+    Deer: I may... but first i need you to help me with something. There are some apples in the nearby trees, and regrettably, my elegant hoofs were never meant for such menial labor as picking apples. Thus, you will bring me 3 apples and i'll help you. Off you go.
+    <<set $appleQuest="in progress">>
+    <<set_enabled "AppleCollectible" true>>
+    <<set_enabled "AppleCollectible (1)" true>>
+    <<set_enabled "AppleCollectible (2)" true>>
+<<elseif $appleQuest == "in progress">>
+    <<if $apples < 3>>
+        Deer: My help is still contingent on you securing 3 apples for me. So far, you have collected {$apples}.
+    <<else>>
+        Deer: Ah, my apples. Thank you very much, doltish warrior. Regarding your friend, she seemed confused and looking for a way out of here *looks around him*. I directed her towards the mayor's house, which is just ahead. Now be gone, i feel my intellect diminishing just by being in your presence.
+        <<set $appleQuest="finished">>
+        <<take_item "Player" "Apple" >>
+        <<take_item "Player" "Apple 1" >>
+        <<take_item "Player" "Apple 2" >>
+    <<endif>>
+<<elseif $appleQuest == "finished">>
+    Deer: I am positive i asked you to leave. The mayor's house is just down the road.
+<<endif>>
+===
+
+title: MayorQuest
+---
+<<if $mayorQuest == "not started">>
+    Makoto: Excuse me, ehm.. noble dog, are you by any chance the mayor of this.. uhm, town?
+    Mayor: Woof! Hello there warrior! Yes i am, welcome to my beautiful wonderland. Woof! How are you doing in this fine day?
+    Makoto: Not good to be honest. I am actually not a warrior, and i have no idea how i got here. I have no idea why this sword and shield are stuck to my hands, or why i cant get rid of this cape... my shoulders ache mightily... but i do not have time for that right now. 
+    Mayor: Riiiight... 
+    Makoto: I was told that a friend of mine came to talk to you yesterday? Her name is Yukina.
+    Mayor: Oh, you are a friend of Yukina! She is such a sweet girl woof! But why would she be friends with a weirdo like you?
+    Mayor: Woof! Sorry, i mean, yes, she was indeed here yesterday. She asked if we had had any new visitors besides her recently. I told her that no, that we rarely get any visitors. She seemed disappointed when i said that.
+    Makoto: And then? What did she do? Where did she go?
+    Mayor: Woof! From where did you say you knew her? I can't just tell you where she went before knowing for sure if you knew her Woof!
+    Makoto: Well... we are both not from these parts... we come from somewhere called Japan. I've known her for a long time. We were traveling together but we had an uhm... accident and ended up here.
+    Mayor: Woof I suppose that sounds accurate enough... well, in any case, im not sure where she was headed, but she told me she was expecting a friend to arrive soon
+    Mayor: And that she was going to leave a present for him in the boat that she arrived in Woof. I think she was tired, because there is no way a boat can get into my domain as we have no rivers running through here... but she left in a rush, so i didnt ask.
+    Mayor: Perhaps you are this friend she referred to? and this present will help you find her? Woof! In any case, you should look for her "boat"... or whatever she meant by it.
+    Makoto: That is really helpful!! Thanks a lot!
+    Mayor: Woof! Good luck!
+    <<set $mayorQuest = "finished">>
+<<elseif $mayorQuest == "finished">>
+    <<if $mayorQuestTalks < 1>>
+        Mayor: Woof! Sadly i do not have any more information about Yukina. Did you check out this "boat" she mentioned? Maybe i could help... but im not sure... Woof!
+        <<set $mayorQuestTalks = $mayorQuestTalks + 1>>
+    <<else>>
+        Mayor: You know what, as the mayor, its my duty to help you with this. Follow me Woof!
+        <<set $mayorQuest = "helped">>
+        <<walk_to "MayorNPC" "AbandonedBoat" 2 false>>
+    <<endif>>
+<<elseif $mayorQuest == "helped">>
+    Mayor: Oh, do you also need some help with the riddle? Woof!
+    ->Yes
+        Mayor: Woof! Well, both your names have six letters, and she says they envy each other six times... so maybe compare the letters of your name to hers? Woof! See if they are the same letter?
+        Mayor: 'M' from Makoto and 'Y' from Yukina are not the same, so maybe that means the first comparison is 0 since she said nothing when different?
+        Mayor: Woof! I hope this helps
+    ->No
+        Mayor: Good luck then Woof! Yukina seems quite smart, unlike other visitors.
+<<endif>>
+
+===
+
+title: ZombieNPC
+---
+    <<say "ZombieHead" "Man, that she-warrior Yukina is too strong... do not mess with her!">>
+    <<say "ZombieHead" "She is not in right now and her house is locked, but i would stay far away anyhow!">>
+===
+
+title: YukinaHouseUnlocked
+---
+    Makoto: Yes, i got it! Oh, but no one is in... where could she be? Man, and after i went through all this trouble... 
+    Yukina: Is that you, Makoto?
+    Makoto: Yuki-chan!?!
+    <<walk_to "YukinaNPC" "SpawnPoint (2)">>
+    <<set_enabled "YukinaHouse" false>>
+    <<set_enabled "MayorNPC" false>>
+    <<disable_controls Player>>
+    <<wait 1>>
+    <<enable_controls Player>>
+===
+
+title: YukinaHouseFail
+---
+    <<say "PlayerHead" "Damnn... this is difficult.">>
+===
+
+title: YukinaConversation
+---
+    Makoto: Yuki-chan! I finally found you! Are you ok?!?
+    Yukina: Makoto! I am so glad to see you are ok. We were about to crash on the boat... and suddenly I was here, but you were nowhere to be found. I worried something may have happened to you.
+    Yukina: I decided to leave word behind with the mayor, and a code to get in touch in case you managed to pick up my trail. Are you ok?
+    Makoto: Yes i am ok, but where are we? What happened? There are talking animals everywhere, and even a zombie head in that barrel over there!?!
+    Yukina: Yes, it seems we died and were transported to this world... just like all those isekai animes we loved to watch! See? We even became warriors! I am so strong - i chopped that zombie's head clean off because he asked me about uhm.. something.. i dont remember really
+    Makoto: An isekai!?! But i actually feel so weak! My arms hurt carrying these things around, but i cant seem to get rid of them! Is there any way to go back?
+    Yukina: I've been looking into that in my time here... it seems there is a portal to another world inside the smokey ridge next to us. I do not know where it leads, but i secured the gemstone to deactivate the protective spell around it. Here, take it. 
+    Makoto: What do you mean take it? Are you no coming with me? You do not want to go back?
+    Yukina: Back to where? We died, i have no idea where that portal leads. Besides, i really like being a warrior, suits me well. I can cleave zombies without breaking a sweat. No... i think im staying behind.
+    Makoto: Are you crazy?!?! We must go back!
+    Yukina: Must go back? Easy there, Makoto, we've been friends our whole lives, but im not a random regular high-school student anymore. I am Dragon Force Yukina, the hero of these backwater lands. I must do nothing, ill do what i want, thank you very much. 
+    -> Makoto: Listen to yourself!? Hero? Dragon Force? You've gone crazy! You are coming with me, like it or not!
+        Yukina: Oh, now you have done it Makoto. I hope dying here means you return to Japan. Otherwise... well, whatever, sayonara
+        Makoto barely registers the sharp edge of Yukina's sword cleaving his head.
+        //<<load_scene >>  
+    -> Makoto: I respect your conviction, Dragon Force Yukina, hero of this isekai. I bid thee farewell and good luck.
+        Yukina: Thank you Makoto, best of luck with the portal. Here is the gemstone. 
+        <<give_item "Player" "TowerGemstone">>
+
+===
+
+title: TowerShield
+---
+<<if has_item ("Player", "TowerGemstone")>>
+    Makoto: Ok, lets hope the hero Yukina was right about this stone!
+    <<take_item "Player" "TowerGemstone">>
+    <<play_animation "TowerShield" "TowerFieldAnimation">>
+    Makoto: It worked!!
+<<else>>
+    Makoto: Aarrggh! There is no way i can go through this magic field in one piece... there must be a way to disable it...
+<<endif>>
+===
+
+title: Portal
+---
+    Makoto: Here goes nothing... thank you, Yukina, and good luck to both of us.
+    //<<load_scene >>
+===
